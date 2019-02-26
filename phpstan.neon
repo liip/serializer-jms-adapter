@@ -1,0 +1,4 @@
+parameters:
+    ignoreErrors:
+        # phpstan seems to want to trust to the phpdoc?
+        - '#Result of || is always false#'
