@@ -117,7 +117,7 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
                 return $this->liipSerializer->toArray($data, $this->createLiipContext($context));
             } catch (\Throwable $t) {
                 $this->logger->warning('Liip Serializer failed to convert {type} to array, falling back to JMS', [
-                    'class' => \is_object($data) ? \get_class($data) : \gettype($data),
+                    'type' => \is_object($data) ? \get_class($data) : \gettype($data),
                     'exception' => $t,
                 ]);
             }
