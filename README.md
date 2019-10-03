@@ -1,10 +1,10 @@
 # Liip Serializer JMS Adapter
 
-An adapter to make liip/serializer a drop-in replacement for `jms/serializer`.
+An adapter to make [liip/serializer](https://github.com/liip/serializer) a drop-in replacement for [jms/serializer](https://github.com/schmittjoh/serializer).
 
-Version 1 of this adapter is for integrating JMS Serializer 1.*, and version 2
-for JMS Serializer 2.*. (Because there are BC breaks in the interfaces of JMS
-serializer that prevent this library from supporting JMS 1 and 2 with the same
+Version 1 of this adapter is for integrating JMS Serializer version 1, and version 2
+for JMS Serializer version 2 and 3. (Because there are BC breaks in the interfaces of JMS
+serializer that prevent this library from supporting JMS 1 and 2/3 with the same
 code.)
 
 This library provides a serializer that attempts to use the Liip Serializer and
