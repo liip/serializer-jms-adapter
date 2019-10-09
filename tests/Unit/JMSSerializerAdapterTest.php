@@ -271,11 +271,11 @@ class JMSSerializerAdapterTest extends TestCase
 
         $this->jms->expects($this->once())
             ->method('deserialize')
-            ->with(self::DATA, self::TYPE, 'json')
+            ->with(self::SERIALIZED_JSON, self::TYPE, 'json')
             ->will($this->returnValue($this->model))
         ;
 
-        $object = $transform->deserialize(self::DATA, self::TYPE, 'json');
+        $object = $transform->deserialize(self::SERIALIZED_JSON, self::TYPE, 'json');
         $this->assertSame($this->model, $object);
     }
 

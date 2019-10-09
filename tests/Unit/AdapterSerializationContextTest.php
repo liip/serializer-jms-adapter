@@ -28,7 +28,7 @@ class AdapterSerializationContextTest extends TestCase
         $context = AdapterSerializationContext::create();
         $this->assertInstanceOf(AdapterSerializationContext::class, $context);
 
-        $context->setVersion(3);
+        $context->setVersion('3');
 
         $this->assertFalse($context->hasCustomExclusionStrategy());
     }
