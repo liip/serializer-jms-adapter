@@ -6,8 +6,8 @@ namespace Liip\Serializer\Adapter\JMS;
 
 use JMS\Serializer\ArrayTransformerInterface;
 use JMS\Serializer\Context as JMSContext;
-use JMS\Serializer\DeserializationContext as JMSDeserializationContext;
-use JMS\Serializer\SerializationContext as JMSSerializationContext;
+use JMS\Serializer\DeserializationContext;
+use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
 use Liip\Serializer\Context;
 use Liip\Serializer\SerializerInterface as LiipSerializer;
@@ -54,7 +54,7 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
      */
     public function __construct(
         LiipSerializer $liipSerializer,
-        $originalSerializer,
+        object $originalSerializer,
         LoggerInterface $logger,
         ?array $enabledClasses = null
     ) {
@@ -78,7 +78,7 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
         }
     }
 
-    public function serialize($data, $format, JMSSerializationContext $context = null)
+    public function serialize($data, string $format, ?SerializationContext $context = null, ?string $type = null): string
     {
         if ('json' === $format && $this->useLiipSerializer($data, $context)) {
             try {
@@ -91,10 +91,10 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
             }
         }
 
-        return $this->originalSerializer->serialize($data, $format, $context);
+        return $this->originalSerializer->serialize($data, $format, $context, $type);
     }
 
-    public function deserialize($data, $type, $format, JMSDeserializationContext $context = null)
+    public function deserialize(string $data, string $type, string $format, ?DeserializationContext $context = null)
     {
         if ('json' === $format && $this->useLiipDeserializer($type, $context)) {
             try {
@@ -110,7 +110,7 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
         return $this->originalSerializer->deserialize($data, $type, $format, $context);
     }
 
-    public function toArray($data, JMSSerializationContext $context = null)
+    public function toArray($data, ?SerializationContext $context = null, ?string $type = null): array
     {
         if ($this->useLiipSerializer($data, $context)) {
             try {
@@ -123,10 +123,10 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
             }
         }
 
-        return $this->originalSerializer->toArray($data, $context);
+        return $this->originalSerializer->toArray($data, $context, $type);
     }
 
-    public function fromArray(array $data, $type, JMSDeserializationContext $context = null)
+    public function fromArray(array $data, string $type, ?DeserializationContext $context = null)
     {
         if ($this->useLiipDeserializer($type, $context)) {
             try {
@@ -142,7 +142,7 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
         return $this->originalSerializer->fromArray($data, $type, $context);
     }
 
-    private function createLiipContext(?JMSContext $context)
+    private function createLiipContext(?JMSContext $context): ?Context
     {
         if (null === $context) {
             return null;
@@ -159,7 +159,7 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
         return $liipContext;
     }
 
-    private function useLiipSerializer($data, ?JMSSerializationContext $context): bool
+    private function useLiipSerializer($data, ?SerializationContext $context): bool
     {
         if (!\is_object($data)) {
             // $data can be anything, not only an object. a feature complete serializer should also handle string (trivial) and arrays (loop over the elements)
@@ -189,7 +189,7 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
         return true;
     }
 
-    private function useLiipDeserializer(string $type, ?JMSDeserializationContext $context): bool
+    private function useLiipDeserializer(string $type, ?DeserializationContext $context): bool
     {
         if (null !== $this->enabledClasses && !\array_key_exists($type, $this->enabledClasses)) {
             return false;
