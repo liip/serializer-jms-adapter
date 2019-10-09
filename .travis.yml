@@ -25,9 +25,6 @@ matrix:
 
     - php: '7.4snapshot'
 
-    allow_failures:
-    - php: '7.4snapshot'
-
 install:
 - composer update ${COMPOSER_FLAGS} --prefer-dist --no-interaction
 
