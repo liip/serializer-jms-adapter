@@ -19,7 +19,7 @@
         "doctrine/annotations": "^1.6",
         "jms/serializer": "^2.0||^3.0",
         "liip/serializer": "^1.0@dev",
-        "pnz/json-exception": "^0.1.0",
+        "pnz/json-exception": "^1.0",
         "psr/log": "^1"
     },
     "require-dev": {
