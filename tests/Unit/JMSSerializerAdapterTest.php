@@ -64,7 +64,7 @@ class JMSSerializerAdapterTest extends TestCase
         $this->liip->expects($this->once())
             ->method('serialize')
             ->with($this->model, 'json')
-            ->will($this->returnValue(self::SERIALIZED_JSON))
+            ->willReturn(self::SERIALIZED_JSON)
         ;
 
         $this->jms->expects($this->never())
@@ -87,7 +87,7 @@ class JMSSerializerAdapterTest extends TestCase
         $this->jms->expects($this->once())
             ->method('serialize')
             ->with($this->model, 'xml', $context)
-            ->will($this->returnValue(self::SERIALIZED_XML))
+            ->willReturn(self::SERIALIZED_XML)
         ;
 
         $xml = $transform->serialize($this->model, 'xml', $context);
@@ -107,7 +107,7 @@ class JMSSerializerAdapterTest extends TestCase
         $this->jms->expects($this->once())
             ->method('serialize')
             ->with($this->model, 'json', $context)
-            ->will($this->returnValue(self::SERIALIZED_JSON))
+            ->willReturn(self::SERIALIZED_JSON)
         ;
 
         $xml = $transform->serialize($this->model, 'json', $context);
@@ -122,7 +122,7 @@ class JMSSerializerAdapterTest extends TestCase
         $this->liip->expects($this->once())
             ->method('serialize')
             ->with($this->model, 'json')
-            ->will($this->returnValue(self::SERIALIZED_JSON))
+            ->willReturn(self::SERIALIZED_JSON)
         ;
 
         $this->jms->expects($this->never())
@@ -144,7 +144,7 @@ class JMSSerializerAdapterTest extends TestCase
         $this->jms->expects($this->once())
             ->method('serialize')
             ->with($this->model, 'json', $context)
-            ->will($this->returnValue(self::SERIALIZED_JSON))
+            ->willReturn(self::SERIALIZED_JSON)
         ;
 
         $json = $transform->serialize($this->model, 'json', $context);
@@ -165,7 +165,7 @@ class JMSSerializerAdapterTest extends TestCase
         $this->jms->expects($this->once())
             ->method('serialize')
             ->with($this->model, 'json', $context)
-            ->will($this->returnValue(self::SERIALIZED_JSON))
+            ->willReturn(self::SERIALIZED_JSON)
         ;
 
         $json = $transform->serialize($this->model, 'json', $context);
@@ -180,7 +180,7 @@ class JMSSerializerAdapterTest extends TestCase
         $this->liip->expects($this->once())
             ->method('toArray')
             ->with($this->model)
-            ->will($this->returnValue(self::DATA))
+            ->willReturn(self::DATA)
         ;
         $this->jms->expects($this->never())
             ->method('toArray')
@@ -202,7 +202,7 @@ class JMSSerializerAdapterTest extends TestCase
         $this->jms->expects($this->once())
             ->method('toArray')
             ->with($this->model, $context)
-            ->will($this->returnValue(self::DATA))
+            ->willReturn(self::DATA)
         ;
 
         $array = $transform->toArray($this->model, $context);
@@ -216,7 +216,7 @@ class JMSSerializerAdapterTest extends TestCase
         $this->liip->expects($this->once())
             ->method('toArray')
             ->with($this->model)
-            ->will($this->returnValue(self::DATA))
+            ->willReturn(self::DATA)
         ;
         $this->jms->expects($this->never())
             ->method('toArray')
@@ -233,7 +233,7 @@ class JMSSerializerAdapterTest extends TestCase
         $this->liip->expects($this->once())
             ->method('deserialize')
             ->with(self::SERIALIZED_JSON, self::TYPE, 'json', null)
-            ->will($this->returnValue($this->model))
+            ->willReturn($this->model)
         ;
 
         $this->jms->expects($this->never())
@@ -254,7 +254,7 @@ class JMSSerializerAdapterTest extends TestCase
         $this->jms->expects($this->once())
             ->method('deserialize')
             ->with(self::SERIALIZED_XML, self::TYPE, 'xml')
-            ->will($this->returnValue($this->model))
+            ->willReturn($this->model)
         ;
 
         $object = $transform->deserialize(self::SERIALIZED_XML, self::TYPE, 'xml');
@@ -272,7 +272,7 @@ class JMSSerializerAdapterTest extends TestCase
         $this->jms->expects($this->once())
             ->method('deserialize')
             ->with(self::SERIALIZED_JSON, self::TYPE, 'json')
-            ->will($this->returnValue($this->model))
+            ->willReturn($this->model)
         ;
 
         $object = $transform->deserialize(self::SERIALIZED_JSON, self::TYPE, 'json');
@@ -292,7 +292,7 @@ class JMSSerializerAdapterTest extends TestCase
         $this->jms->expects($this->once())
             ->method('deserialize')
             ->with(self::SERIALIZED_JSON, self::TYPE, 'json', $context)
-            ->will($this->returnValue($this->model))
+            ->willReturn($this->model)
         ;
 
         $object = $transform->deserialize(self::SERIALIZED_JSON, self::TYPE, 'json', $context);
@@ -311,7 +311,7 @@ class JMSSerializerAdapterTest extends TestCase
         $this->jms->expects($this->once())
             ->method('fromArray')
             ->with(self::DATA, self::TYPE, $context)
-            ->will($this->returnValue($this->model))
+            ->willReturn($this->model)
         ;
 
         $object = $transform->fromArray(self::DATA, self::TYPE, $context);
@@ -329,7 +329,7 @@ class JMSSerializerAdapterTest extends TestCase
         $this->jms->expects($this->once())
             ->method('fromArray')
             ->with(self::DATA, self::TYPE, $context)
-            ->will($this->returnValue($this->model))
+            ->willReturn($this->model)
         ;
 
         $data = $transform->fromArray(self::DATA, self::TYPE, $context);
@@ -343,7 +343,7 @@ class JMSSerializerAdapterTest extends TestCase
         $this->liip->expects($this->once())
             ->method('fromArray')
             ->with(self::DATA, self::TYPE)
-            ->will($this->returnValue($this->model))
+            ->willReturn($this->model)
         ;
         $this->jms->expects($this->never())
             ->method('fromArray')
