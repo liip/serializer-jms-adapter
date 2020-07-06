@@ -1,5 +1,2 @@
 parameters:
-    ignoreErrors:
-        # phpstan trusts phpdoc. this makes sense for applications, not for the public interface of a library
-        # this likely won't be changed: https://github.com/phpstan/phpstan/issues/1926
-        - '#Result of || is always false#'
+    treatPhpDocTypesAsCertain: false
