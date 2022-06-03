@@ -2,4 +2,7 @@ parameters:
     ignoreErrors:
         # phpstan trusts phpdoc. this makes sense for applications, not for the public interface of a library
         # this likely won't be changed: https://github.com/phpstan/phpstan/issues/1926
-        - '#Result of || is always false#'
+        - '#Result of \|\| is always false#'
+        # If a type "mixed" is added via phpdoc, the php-cs-fixer will remove this docblock again because the docblock
+        # is seen as superfluous, so we ignore this error.
+        - '#Method Liip\\Serializer\\Adapter\\JMS\\JMSSerializerAdapter::useLiipSerializer\(\) has parameter \$data with no type specified\.#'
