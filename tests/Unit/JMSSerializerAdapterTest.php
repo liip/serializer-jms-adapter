@@ -14,6 +14,7 @@ use Liip\Serializer\SerializerInterface as LiipSerializer;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\NullLogger;
+use Tests\Liip\Serializer\Adapter\JMS\Fixtures\DummyJmsSerializer;
 use Tests\Liip\Serializer\Adapter\JMS\Fixtures\TestModel;
 
 /**
@@ -40,7 +41,7 @@ class JMSSerializerAdapterTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->jms = $this->createMock([SerializerInterface::class, ArrayTransformerInterface::class]);
+        $this->jms = $this->createMock(DummyJmsSerializer::class);
         $this->liip = $this->createMock(LiipSerializer::class);
         $this->model = new TestModel();
     }
