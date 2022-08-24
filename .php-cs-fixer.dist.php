@@ -3,10 +3,11 @@
 declare(strict_types=1);
 
 $finder = PhpCsFixer\Finder::create()
+    ->exclude('vendor')
     ->in(__DIR__)
 ;
 
-return PhpCsFixer\Config::create()
+return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules(
         [

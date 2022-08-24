@@ -27,20 +27,23 @@ class JMSSerializerAdapterTest extends TestCase
     private const DATA = ['it-works' => 'yes'];
 
     /**
-     * @var SerializerInterface|ArrayTransformerInterface|MockObject
+     * @var SerializerInterface&ArrayTransformerInterface&MockObject
      */
     private $jms;
 
     /**
-     * @var LiipSerializer|MockObject
+     * @var LiipSerializer&MockObject
      */
     private $liip;
 
+    /**
+     * @var TestModel
+     */
     private $model;
 
     protected function setUp(): void
     {
-        $this->jms = $this->createMock([SerializerInterface::class, ArrayTransformerInterface::class]);
+        $this->jms = $this->createMock(SerializerArrayTransformer::class);
         $this->liip = $this->createMock(LiipSerializer::class);
         $this->model = new TestModel();
     }
@@ -352,4 +355,8 @@ class JMSSerializerAdapterTest extends TestCase
         $transformed = $transform->fromArray(self::DATA, self::TYPE);
         $this->assertSame($this->model, $transformed);
     }
+}
+
+interface SerializerArrayTransformer extends SerializerInterface, ArrayTransformerInterface
+{
 }

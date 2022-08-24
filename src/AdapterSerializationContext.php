@@ -25,7 +25,7 @@ class AdapterSerializationContext extends SerializationContext
 
     public function addExclusionStrategy(ExclusionStrategyInterface $strategy): Context
     {
-        if (0 !== \strpos(\get_class($strategy), 'JMS')) {
+        if (0 !== strpos(\get_class($strategy), 'JMS')) {
             $this->hasCustomExclusionStrategy = true;
         }
 
