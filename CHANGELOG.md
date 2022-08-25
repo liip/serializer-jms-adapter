@@ -9,3 +9,21 @@ Changelog
 
 * Support PHP 8
 * Allow installation with psr/log 2 and 3, in addition to 1
+
+2.0.1
+-----
+
+* Compatible with liip/serializer 2
+
+2.0.0
+-----
+
+* Release compatible with jms/serializer version 2 and 3
+
+1.x
+===
+
+1.0.0
+-----
+
+* Release compatible with jms/serializer version 1.
