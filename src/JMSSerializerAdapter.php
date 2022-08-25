@@ -110,6 +110,9 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
         return $this->originalSerializer->deserialize($data, $type, $format, $context);
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function toArray($data, ?SerializationContext $context = null, ?string $type = null): array
     {
         if ($this->useLiipSerializer($data, $context)) {
@@ -126,6 +129,9 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
         return $this->originalSerializer->toArray($data, $context, $type);
     }
 
+    /**
+     * @param array<mixed> $data
+     */
     public function fromArray(array $data, string $type, ?DeserializationContext $context = null)
     {
         if ($this->useLiipDeserializer($type, $context)) {
@@ -159,6 +165,9 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
         return $liipContext;
     }
 
+    /**
+     * @param array<mixed>|object $data
+     */
     private function useLiipSerializer($data, ?SerializationContext $context): bool
     {
         if (!\is_object($data)) {

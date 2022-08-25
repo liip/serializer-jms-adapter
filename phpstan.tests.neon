@@ -1,1 +1,4 @@
-# empty file to not have the ignore rule from phpstan.neon
+parameters:
+  level: 1
+  paths:
+    - tests/
