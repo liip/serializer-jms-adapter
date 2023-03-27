@@ -5,7 +5,7 @@
 | BC breaks?      | no|yes
 | Deprecations?   | no|yes
 | Related tickets | fixes #X, partially #Y, mentioned in #Z
-| Documentation   | if this is a new feature, link to pull request in https://github.com/php-http/documentation that adds relevant documentation
+| Documentation   | if there is anything to document about this change, please update the README.md accordingly
 | License         | MIT
 
 
