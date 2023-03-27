@@ -94,7 +94,7 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
         return $this->originalSerializer->serialize($data, $format, $context, $type);
     }
 
-    public function deserialize(string $data, string $type, string $format, ?DeserializationContext $context = null)
+    public function deserialize(string $data, string $type, string $format, ?DeserializationContext $context = null): mixed
     {
         if ('json' === $format && $this->useLiipDeserializer($type, $context)) {
             try {
@@ -132,7 +132,7 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
     /**
      * @param array<mixed> $data
      */
-    public function fromArray(array $data, string $type, ?DeserializationContext $context = null)
+    public function fromArray(array $data, string $type, ?DeserializationContext $context = null): mixed
     {
         if ($this->useLiipDeserializer($type, $context)) {
             try {
