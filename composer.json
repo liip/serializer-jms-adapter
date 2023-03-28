@@ -14,7 +14,7 @@
         "issues": "https://github.com/liip/serializer-jms-adapter/issues"
     },
     "require": {
-        "php": "^7.2 || ^8.0",
+        "php": "^8.0",
         "ext-json": "*",
         "doctrine/annotations": "^1.6",
         "jms/serializer": "^2.0||^3.0",
