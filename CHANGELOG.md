@@ -4,6 +4,12 @@ Changelog
 2.x
 ===
 
+2.2.0
+-----
+
+* Fix deprecations of PHP 8
+* Drop support for PHP 7
+
 2.1.0
 -----
 
