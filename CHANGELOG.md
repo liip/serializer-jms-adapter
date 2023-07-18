@@ -4,6 +4,11 @@ Changelog
 2.x
 ===
 
+2.2.1 (unreleased)
+------------------
+
+* Remove `doctrine/annotations` as a direct dependency
+
 2.2.0
 -----
 
