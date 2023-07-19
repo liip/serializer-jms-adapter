@@ -1,36 +1,52 @@
-name: Static analysis
+name: Static
 
 on:
   push:
     branches:
-      - 2.x
+      - '*.x'
+    tags:
+      - '[0-9].[0-9]+'
   pull_request:
 
 jobs:
   phpstan:
-    name: PHPStan
+    name: "PHPStan"
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
+      - name: Check out code into the workspace
+        uses: actions/checkout@v3
+      - name: Setup PHP 8.2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+      - name: Composer cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.HOME }}/.composer/cache
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+      - name: Install dependencies
+        run: composer update --prefer-dist --no-interaction
       - name: PHPStan
-        uses: docker://oskarstark/phpstan-ga
-        env:
-          REQUIRE_DEV: true
-        with:
-          args: analyze --no-progress
+        run: composer phpstan-all
 
-  php-cs-fixer:
-    name: PHP-CS-Fixer
+  cs:
+    name: "CS Fixer"
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: PHP-CS-Fixer
-        uses: docker://oskarstark/php-cs-fixer-ga
+      - name: Check out code into the workspace
+        uses: actions/checkout@v3
+      - name: Setup PHP 8.2
+        uses: shivammathur/setup-php@v2
         with:
-          args: --dry-run --diff
+          php-version: 8.2
+      - name: Validate composer.json
+        run: composer validate --strict --no-check-lock
+      - name: Composer cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.HOME }}/.composer/cache
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+      - name: Install dependencies
+        run: composer update --prefer-dist --no-interaction
+      - name: CS Fixer
+        run: composer cs-fixer

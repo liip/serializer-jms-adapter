@@ -56,7 +56,7 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
         LiipSerializer $liipSerializer,
         object $originalSerializer,
         LoggerInterface $logger,
-        ?array $enabledClasses = null
+        array $enabledClasses = null
     ) {
         $this->liipSerializer = $liipSerializer;
         if (!$originalSerializer instanceof SerializerInterface
@@ -64,7 +64,7 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
         ) {
             throw new \InvalidArgumentException(sprintf(
                 'Original serializer must implement both ArrayTransformerInterface and SerializerInterface, but is %s',
-                \get_class($originalSerializer)
+                $originalSerializer::class
             ));
         }
         $this->originalSerializer = $originalSerializer;
@@ -78,14 +78,14 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
         }
     }
 
-    public function serialize($data, string $format, ?SerializationContext $context = null, ?string $type = null): string
+    public function serialize($data, string $format, SerializationContext $context = null, string $type = null): string
     {
         if ('json' === $format && $this->useLiipSerializer($data, $context)) {
             try {
                 return $this->liipSerializer->serialize($data, $format, $this->createLiipContext($context));
             } catch (\Throwable $t) {
                 $this->logger->warning('Liip Serializer failed to serialize {type}, falling back to JMS', [
-                    'type' => \is_object($data) ? \get_class($data) : \gettype($data),
+                    'type' => \is_object($data) ? $data::class : \gettype($data),
                     'exception' => $t,
                 ]);
             }
@@ -94,7 +94,7 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
         return $this->originalSerializer->serialize($data, $format, $context, $type);
     }
 
-    public function deserialize(string $data, string $type, string $format, ?DeserializationContext $context = null): mixed
+    public function deserialize(string $data, string $type, string $format, DeserializationContext $context = null): mixed
     {
         if ('json' === $format && $this->useLiipDeserializer($type, $context)) {
             try {
@@ -113,14 +113,14 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
     /**
      * @return array<mixed>
      */
-    public function toArray($data, ?SerializationContext $context = null, ?string $type = null): array
+    public function toArray($data, SerializationContext $context = null, string $type = null): array
     {
         if ($this->useLiipSerializer($data, $context)) {
             try {
                 return $this->liipSerializer->toArray($data, $this->createLiipContext($context));
             } catch (\Throwable $t) {
                 $this->logger->warning('Liip Serializer failed to convert {type} to array, falling back to JMS', [
-                    'type' => \is_object($data) ? \get_class($data) : \gettype($data),
+                    'type' => \is_object($data) ? $data::class : \gettype($data),
                     'exception' => $t,
                 ]);
             }
@@ -132,7 +132,7 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
     /**
      * @param array<mixed> $data
      */
-    public function fromArray(array $data, string $type, ?DeserializationContext $context = null): mixed
+    public function fromArray(array $data, string $type, DeserializationContext $context = null): mixed
     {
         if ($this->useLiipDeserializer($type, $context)) {
             try {
@@ -176,7 +176,7 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
 
             return false;
         }
-        if (null !== $this->enabledClasses && !\array_key_exists(\get_class($data), $this->enabledClasses)) {
+        if (null !== $this->enabledClasses && !\array_key_exists($data::class, $this->enabledClasses)) {
             return false;
         }
         if (null !== $context) {
@@ -185,7 +185,7 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
                     'Serialization context for %s needs to be an instance of %s, %s given',
                     __CLASS__,
                     AdapterSerializationContext::class,
-                    \get_class($context)
+                    $context::class
                 ));
             }
 
