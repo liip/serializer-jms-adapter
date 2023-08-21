@@ -13,10 +13,7 @@ use JMS\Serializer\SerializationContext;
  */
 class AdapterSerializationContext extends SerializationContext
 {
-    /**
-     * @var bool
-     */
-    private $hasCustomExclusionStrategy = false;
+    private bool $hasCustomExclusionStrategy = false;
 
     public static function create(): SerializationContext
     {

@@ -29,17 +29,14 @@ class JMSSerializerAdapterTest extends TestCase
     /**
      * @var SerializerInterface&ArrayTransformerInterface&MockObject
      */
-    private $jms;
+    private MockObject $jms;
 
     /**
      * @var LiipSerializer&MockObject
      */
-    private $liip;
+    private MockObject $liip;
 
-    /**
-     * @var TestModel
-     */
-    private $model;
+    private TestModel $model;
 
     protected function setUp(): void
     {
