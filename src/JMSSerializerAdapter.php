@@ -111,6 +111,8 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
     }
 
     /**
+     * @param mixed $data
+     *
      * @return array<mixed>
      */
     public function toArray($data, SerializationContext $context = null, string $type = null): array
