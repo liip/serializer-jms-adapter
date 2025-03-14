@@ -22,7 +22,7 @@
         "psr/log": "^1 | ^2 | ^3"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.20",
+        "friendsofphp/php-cs-fixer": "^v3.72.0",
         "phpstan/phpstan": "^1.2",
         "phpstan/phpstan-phpunit": "^1.0",
         "phpunit/phpunit": "^9.6",
