@@ -4,6 +4,11 @@ Changelog
 2.x
 ===
 
+2.2.2 (unreleased)
+-----
+
+* Fix deprecations for PHP 8.4
+
 2.2.1
 -----
 
