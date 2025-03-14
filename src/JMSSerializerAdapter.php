@@ -45,12 +45,12 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
         private LiipSerializer $liipSerializer,
         object $originalSerializer,
         private LoggerInterface $logger,
-        array $enabledClasses = null
+        ?array $enabledClasses = null,
     ) {
         if (!$originalSerializer instanceof SerializerInterface
             || !$originalSerializer instanceof ArrayTransformerInterface
         ) {
-            throw new \InvalidArgumentException(sprintf(
+            throw new \InvalidArgumentException(\sprintf(
                 'Original serializer must implement both ArrayTransformerInterface and SerializerInterface, but is %s',
                 $originalSerializer::class
             ));
@@ -65,7 +65,7 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
         }
     }
 
-    public function serialize($data, string $format, SerializationContext $context = null, string $type = null): string
+    public function serialize($data, string $format, ?SerializationContext $context = null, ?string $type = null): string
     {
         if ('json' === $format && $this->useLiipSerializer($data, $context)) {
             try {
@@ -81,7 +81,7 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
         return $this->originalSerializer->serialize($data, $format, $context, $type);
     }
 
-    public function deserialize(string $data, string $type, string $format, DeserializationContext $context = null): mixed
+    public function deserialize(string $data, string $type, string $format, ?DeserializationContext $context = null): mixed
     {
         if ('json' === $format && $this->useLiipDeserializer($type, $context)) {
             try {
@@ -100,7 +100,7 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
     /**
      * @return array<mixed>
      */
-    public function toArray($data, SerializationContext $context = null, string $type = null): array
+    public function toArray($data, ?SerializationContext $context = null, ?string $type = null): array
     {
         if ($this->useLiipSerializer($data, $context)) {
             try {
@@ -119,7 +119,7 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
     /**
      * @param array<mixed> $data
      */
-    public function fromArray(array $data, string $type, DeserializationContext $context = null): mixed
+    public function fromArray(array $data, string $type, ?DeserializationContext $context = null): mixed
     {
         if ($this->useLiipDeserializer($type, $context)) {
             try {
@@ -135,7 +135,7 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
         return $this->originalSerializer->fromArray($data, $type, $context);
     }
 
-    private function createLiipContext(SerializationContext|null|DeserializationContext $context): ?Context
+    private function createLiipContext(SerializationContext|DeserializationContext|null $context): ?Context
     {
         if (null === $context) {
             return null;
@@ -168,7 +168,7 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
         }
         if (null !== $context) {
             if (!$context instanceof AdapterSerializationContext) {
-                throw new \InvalidArgumentException(sprintf(
+                throw new \InvalidArgumentException(\sprintf(
                     'Serialization context for %s needs to be an instance of %s, %s given',
                     self::class,
                     AdapterSerializationContext::class,
