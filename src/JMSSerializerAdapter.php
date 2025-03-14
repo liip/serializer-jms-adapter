@@ -60,7 +60,6 @@ class JMSSerializerAdapter implements SerializerInterface, ArrayTransformerInter
             $this->enabledClasses = null;
         } else {
             $map = array_combine($enabledClasses, array_fill(0, \count($enabledClasses), true));
-            \assert(\is_array($map));
             $this->enabledClasses = $map;
         }
     }
