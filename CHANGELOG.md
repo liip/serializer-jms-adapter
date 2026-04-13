@@ -4,7 +4,7 @@ Changelog
 2.x
 ===
 
-2.3.0
+2.2.3
 -----
 
 * Allow `liip/serializer` 3.x to be used 
