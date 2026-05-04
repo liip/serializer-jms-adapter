@@ -1,3 +1,7 @@
+# Archived
+
+**This repository is no longer maintained. It is continued as [rebuy/serializer-jms-adapter](https://github.com/rebuy-oss/serializer-jms-adapter).**
+
 # Liip Serializer JMS Adapter
 
 An adapter to make [liip/serializer](https://github.com/liip/serializer) a drop-in replacement for [jms/serializer](https://github.com/schmittjoh/serializer).
